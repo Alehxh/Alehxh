@@ -11,39 +11,52 @@ class House:
             print("Такого этажа не существует")
 
     def __str__(self):
-        print('вызван метод __str__')
         return f"Название: {self.name}, кол-во этажей: {self.number_of_floors}"
 
     def __len__(self):
         return self.number_of_floors
 
     def __eq__(self, other):
-        return self.number_of_floors == other.number_of_floors
+        return self.name == other.name and self.number_of_floors == other.number_of_floors
 
     def __lt__(self, other):
-        return self.number_of_floors < other.number_of_floors
+        if isinstance(other, House):
+            return self.number_of_floors < other.number_of_floors
+        else:
+            return self.number_of_floors < other
 
     def __le__(self, other):
-        return self.number_of_floors <= other.number_of_floors
+        if isinstance(other, House):
+            return self.number_of_floors <= other.number_of_floors
+        else:
+            return self.number_of_floors <= other
 
     def __gt__(self, other):
-        return self.number_of_floors > other.number_of_floors
+        if isinstance(other, House):
+            return self.number_of_floors > other.number_of_floors
+        else:
+            return self.number_of_floors > other
 
     def __ge__(self, other):
-        return self.number_of_floors >= other.number_of_floors
+        if isinstance(other, House):
+            return self.number_of_floors >= other.number_of_floors
+        else:
+            return self.number_of_floors >= other
 
     def __ne__(self, other):
         return self.number_of_floors != other.number_of_floors
 
     def __add__(self, value):
+        new_house = House(self.name, self.number_of_floors + value)
+        return new_house
+
+    def __iadd__(self, value):
         self.number_of_floors += value
         return self
 
-    def __iadd__(self, value):
-        return self.number_of_floors + value
-
     def __radd__(self, value):
-        return value + self.number_of_floors
+        new_house = House(self.name, value + self.number_of_floors)
+        return new_house
 
 
 h1 = House('ЖК Эльбрус', 10)
